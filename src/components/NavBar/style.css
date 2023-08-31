@@ -1,0 +1,42 @@
+.NavBarContainer {
+    width: 100vw;
+    height: 150px;
+    background-color:aliceblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-width: 2px 2px;
+    border-style: solid;
+    border-color: #c05110;
+}
+button {
+    background-color:aliceblue;
+    border: 0;
+    color:#c05110;
+    font-size:20px;
+    text-decoration: none!important;
+}
+.Logo {
+    padding-left: 10px;
+    font-size:50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    
+}
+.nav a {
+    padding: 5px;
+    text-decoration: none!important;
+    color:#c05110;
+}
+.nav {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding:5px;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size:20px;
+    cursor: pointer;
+}
