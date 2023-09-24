@@ -7,9 +7,9 @@
 }
 .categoriaTitulo {
     margin-left: 10%;
-    font-size: 2.5rem;
+    font-size: 5rem;
     align-self: flex-start;
-    color: black;
+    color: white;
 }
 
 .itemCard {
@@ -19,8 +19,8 @@
     width: 80%;
     height: 600px;
     padding: 20px;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 .itemDetails{
     height: 80%;
@@ -30,6 +30,6 @@
     margin-left: 20px;
 }
 .singleItemImg{
-    width: 600px;
-    height: auto;
+    width: auto;
+    height: 100%;
 }

@@ -14,10 +14,7 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="nav">
-        <Link to="/">Inicio</Link>
         <Dropdown />
-        <Link to="/">Info</Link>
-        <Link to="/">Contacto</Link>
       </div>
       <div>
         <CartWidget />

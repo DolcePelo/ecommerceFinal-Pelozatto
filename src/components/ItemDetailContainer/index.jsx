@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import placeholderImage from "../../imagenes/placeholder.webp";
+import imagenes from "../../helpers/images";
 import { useParams } from "react-router-dom";
+import { agregarCarrito, numberWithCommas } from "../../helpers/carrito";
 import "./index.css";
 
 export default function ItemDetailContainer({ vehiculos, categorias }) {
@@ -9,9 +10,7 @@ export default function ItemDetailContainer({ vehiculos, categorias }) {
 
   useEffect(() => {
     if (id) {
-      const aux = vehiculos.find(
-        (vehiculo) => vehiculo.id === Number(id)
-      );
+      const aux = vehiculos.find((vehiculo) => vehiculo.id === id);
       setVehiculoActual(aux);
     }
   }, [id]);
@@ -20,12 +19,18 @@ export default function ItemDetailContainer({ vehiculos, categorias }) {
     if (vehiculoActual) {
       return (
         <div className="itemCard">
-          <img src={placeholderImage} className="singleItemImg" />
+          <img src={imagenes[vehiculoActual.imagen]} className="singleItemImg" />
           <div className="itemDetails">
             <p>{vehiculoActual.nombre}</p>
             <p>{categorias[vehiculoActual.categoria]}</p>
             <p>{vehiculoActual.detalles}</p>
-            <p>{vehiculoActual.precio}</p>
+            <p>${numberWithCommas(vehiculoActual.precio)}</p>
+            <div
+              className="button"
+              onClick={() => agregarCarrito(vehiculoActual.id)}
+            >
+              <p>Agregar al carrito</p>
+            </div>
           </div>
         </div>
       );

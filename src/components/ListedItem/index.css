@@ -3,26 +3,49 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
-  background-color: black;
-  color: white;
+  width: 30%;
+  background-color: white;
+  color: black;
   padding: 10px;
   margin-right: 10px;
+  margin-bottom: 10px;
+  min-height: 750px;
+  border-radius: 4px;
 }
 .itemImg {
+  width: auto;
+  height: 250px;
+  max-width: 100%;
+}
+.cardButtons {
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  height: auto;
+  justify-content: space-around;
+  align-items: center;
 }
 .button {
-  width: 60%;
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 3px solid white;
-  border-radius: 5px;
+  border: 3px solid black;
   padding: 5px;
+  border-radius: 5px;
+  text-align: center;
 }
-.button > a {
+
+.button:hover {
+  background-color: lightgray;
+}
+
+.button > a,
+p {
   text-decoration: none;
-  color: white;
+  color: black;
+  margin: 0;
+}
+.card h2 {
+  font-size: 18px;
+  text-align: center;
 }
