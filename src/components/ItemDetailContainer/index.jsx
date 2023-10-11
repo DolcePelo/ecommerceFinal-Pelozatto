@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import imagenes from "../../helpers/images";
+import React, { useEffect, useState, useContext } from "react";
+import placeholderImage from "../../imagenes/placeholder.webp";
 import { useParams } from "react-router-dom";
-import { agregarCarrito, numberWithCommas } from "../../helpers/carrito";
+import { numberWithCommas } from "../../helpers/carrito";
+import { Context } from "../../Context";
+import imagenes from "../../helpers/images";
 import "./index.css";
 
 export default function ItemDetailContainer({ vehiculos, categorias }) {
   let { id } = useParams();
   let [vehiculoActual, setVehiculoActual] = useState();
+  let { setOpenModalWithId } = useContext(Context);
 
   useEffect(() => {
     if (id) {
@@ -27,7 +30,7 @@ export default function ItemDetailContainer({ vehiculos, categorias }) {
             <p>${numberWithCommas(vehiculoActual.precio)}</p>
             <div
               className="button"
-              onClick={() => agregarCarrito(vehiculoActual.id)}
+              onClick={() => setOpenModalWithId(vehiculoActual.id)}
             >
               <p>Agregar al carrito</p>
             </div>

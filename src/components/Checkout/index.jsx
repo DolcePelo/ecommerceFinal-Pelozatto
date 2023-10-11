@@ -1,68 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import images from "../../helpers/images";
 import { numberWithCommas } from "../../helpers/carrito";
+import { collection, addDoc } from "firebase/firestore";
+import db from "../../helpers/firebase";
 import { toast } from "react-toastify";
+import { Context } from "../../Context";
 import "./style.css";
 
 export default function Checkout({ vehiculos }) {
+  let { carrito, setCarrito } = useContext(Context);
   let [vehiculosActuales, setVehiculosActuales] = useState([]);
   let [cantidadVehiculos, setCantidadVehiculos] = useState(0);
   let [totalCompra, setTotalCompra] = useState(0);
 
   const eliminarDelCarrito = (id) => {
-    const carrito = localStorage.getItem("carrito") ?? "";
-    let idsCarrito = carrito.split(",");
-    const arrayCarrito = idsCarrito.filter((itemId) => itemId !== id);
-    localStorage.setItem("carrito", arrayCarrito);
+    const arrayCarrito = carrito.filter((item) => item.id !== id);
+    setCarrito(arrayCarrito);
     parsearCarrito();
     toast("Producto eliminado del carrito exitosamente");
   };
 
-  const confirmarCompra = () => {
-    let carrito = localStorage.getItem("carrito") ?? "";
+  const confirmarCompra = async () => {
     if (carrito) {
-      localStorage.removeItem("carrito");
+      const docRef = await addDoc(collection(db, "orders"), {
+        total: totalCompra,
+      });
+      setCarrito([]);
       setVehiculosActuales([]);
       setCantidadVehiculos(0);
       setTotalCompra(0);
-      toast("Felicidades, tu compra se ha realizado con exito");
+      toast(
+        `Felicidades, tu compra se ha realizado con exito! Nro. orden: ${docRef.id}`
+      );
     }
   };
 
   const parsearCarrito = () => {
-    let carrito = localStorage.getItem("carrito") ?? "";
     let arrayCarrito = [];
     let total = 0;
-    let idsCarrito = carrito.split(",");
-    if (carrito !== "") {
-      setCantidadVehiculos(idsCarrito.length);
-    } else {
-      setCantidadVehiculos(0);
-    }
-    idsCarrito.forEach((id) => {
-      let exists = arrayCarrito.findIndex((item) => item.id === id.toString());
-      if (exists >= 0) {
-        console.log(exists);
-        arrayCarrito[exists] = {
-          ...arrayCarrito[exists],
-          cantidad: arrayCarrito[exists].cantidad + 1,
-        };
-        total += Number(arrayCarrito[exists].precio);
-      } else {
-        let vehiculo = vehiculos.find(
-          (item) => item.id === id.toString()
-        );
-        if (vehiculo) {
-          arrayCarrito.push({
-            ...vehiculo,
-            cantidad: 1,
-          });
-          total += Number(vehiculo.precio);
-        }
+    let cantidadVehiculos = 0;
+    carrito.forEach((item) => {
+      let vehiculo = vehiculos.find((vehiculo) => vehiculo.id === item.id);
+      if (vehiculo) {
+        arrayCarrito.push({
+          ...vehiculo,
+          cantidad: item.cantidad,
+        });
+        total += Number(vehiculo.precio * item.cantidad);
+        cantidadVehiculos += item.cantidad;
       }
     });
     console.log(arrayCarrito);
     setVehiculosActuales(arrayCarrito);
+    setCantidadVehiculos(cantidadVehiculos);
     setTotalCompra(total);
   };
 
@@ -92,9 +82,7 @@ export default function Checkout({ vehiculos }) {
                 </button>
               </div>
               <div className="itemPrecio">
-                <p>
-                  ${numberWithCommas(vehiculo.precio * vehiculo.cantidad)}
-                </p>
+                <p>${numberWithCommas(vehiculo.precio * vehiculo.cantidad)}</p>
               </div>
             </div>
           );

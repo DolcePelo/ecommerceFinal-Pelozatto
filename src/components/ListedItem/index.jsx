@@ -1,10 +1,13 @@
-import React from "react";
-import imagenes from "../../helpers/images"
-import { agregarCarrito, numberWithCommas } from "../../helpers/carrito";
+import React, { useContext } from "react";
+import imagenes from "../../helpers/images";
+import { numberWithCommas } from "../../helpers/carrito";
 import "./index.css";
 import { Link } from "react-router-dom";
+import { Context } from "../../Context";
 
 export default function ListedItem({ vehiculo, categorias }) {
+  let { setOpenModalWithId } = useContext(Context);
+
   return (
     <div className="card">
       <img src={imagenes[vehiculo.imagen]} className="itemImg" />
@@ -16,7 +19,7 @@ export default function ListedItem({ vehiculo, categorias }) {
         <div className="button">
           <Link to={`/item/${vehiculo.id}`}>Ver mas</Link>
         </div>
-        <div className="button" onClick={() => agregarCarrito(vehiculo.id)}>
+        <div className="button" onClick={() => setOpenModalWithId(vehiculo.id)}>
           <p>Agregar al carrito</p>
         </div>
       </div>

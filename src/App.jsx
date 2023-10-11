@@ -8,13 +8,17 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { ToastContainer } from "react-toastify";
+import ModalCart from "./components/ModalCart";
+import { Context } from "./Context";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [vehiculos, setVehiculos] = useState([]);
+  const [carrito, setCarrito] = useState([]);
+  const [openModalWithId, setOpenModalWithId] = useState();
 
   useEffect(() => {
-    //Cargar vehiculos
+    //Cargar instrumentos
     fetchData();
   }, []);
 
@@ -33,48 +37,53 @@ function App() {
     setVehiculos(data);
   };
 
-  const categorias = ["Motos", "Cuatriciclos"];
+  const categorias = ["Motos", "Cuatriciclos", "Lanchas"];
 
   return (
     <div className="body">
-      <NavBar />
-      <ToastContainer />
-      <Routes>
-        <Route
-          path="/"
-          Component={(props) => (
-            <ItemsListContainer
-              vehiculos={vehiculos}
-              categorias={categorias}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path="/category/:id"
-          Component={(props) => (
-            <ItemsListContainer
-              vehiculos={vehiculos}
-              categorias={categorias}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path="/item/:id"
-          Component={(props) => (
-            <ItemDetailContainer
-              vehiculos={vehiculos}
-              categorias={categorias}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path="/checkout/"
-          Component={(props) => <Checkout vehiculos={vehiculos} {...props} />}
-        />
-      </Routes>
+      <Context.Provider
+        value={{ carrito, setCarrito, openModalWithId, setOpenModalWithId }}
+      >
+        <NavBar />
+        <ToastContainer />
+        {openModalWithId && <ModalCart />}
+        <Routes>
+          <Route
+            path="/"
+            Component={(props) => (
+              <ItemsListContainer
+                vehiculos={vehiculos}
+                categorias={categorias}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/category/:id"
+            Component={(props) => (
+              <ItemsListContainer
+                vehiculos={vehiculos}
+                categorias={categorias}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/item/:id"
+            Component={(props) => (
+              <ItemDetailContainer
+                vehiculos={vehiculos}
+                categorias={categorias}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/checkout/"
+            Component={(props) => <Checkout vehiculos={vehiculos} {...props} />}
+          />
+        </Routes>
+      </Context.Provider>
     </div>
   );
 }
