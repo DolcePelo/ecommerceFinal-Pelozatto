@@ -9,8 +9,8 @@
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  min-height: 750px;
-  border-radius: 4px;
+  min-height: 550px;
+  border-radius: 10px;
 }
 .itemImg {
   width: auto;
@@ -25,18 +25,18 @@
   align-items: center;
 }
 .button {
-  width: 40%;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px solid black;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 10px;
   text-align: center;
 }
 
 .button:hover {
-  background-color: lightgray;
+  background-color: rgba(206, 106, 5, 0.773);
 }
 
 .button > a,
@@ -46,6 +46,7 @@ p {
   margin: 0;
 }
 .card h2 {
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
+  color: rgb(192, 114, 3);
 }

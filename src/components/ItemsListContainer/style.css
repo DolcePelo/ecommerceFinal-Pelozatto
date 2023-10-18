@@ -7,10 +7,9 @@
 
 .categoria {
   display: flex;
-  align-self: flex-start;
   margin-left: 10%;
   font-size: 5rem;
-  color: white;
+  color: rgb(164, 75, 2);
 }
 
 .listado {

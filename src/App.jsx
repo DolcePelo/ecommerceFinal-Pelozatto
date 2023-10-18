@@ -18,7 +18,7 @@ function App() {
   const [openModalWithId, setOpenModalWithId] = useState();
 
   useEffect(() => {
-    //Cargar instrumentos
+    //Cargar motos
     fetchData();
   }, []);
 
