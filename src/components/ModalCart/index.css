@@ -71,6 +71,7 @@
     font-size: 15px;
     margin: 0 10px;
 }
+
 .confirmacion button:hover {
     background-color: lightgray;
 }

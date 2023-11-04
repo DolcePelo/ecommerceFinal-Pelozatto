@@ -11,5 +11,6 @@ export default function CartWidget() {
         <FontAwesomeIcon icon={faCartShopping} />
       </Link>
     </div>
+    
   );
 }
