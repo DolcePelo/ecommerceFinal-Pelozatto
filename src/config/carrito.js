@@ -20,7 +20,7 @@ export const agregarCarrito = (carrito, setCarrito, id, cantidad) => {
     });
     setCarrito(carritoTemporal);
   }
-  toast("Vehiculo agregado al carrito de compra");
+  toast("producto agregado al carrito de compra");
 };
 
 export const numberWithCommas = (x) => {

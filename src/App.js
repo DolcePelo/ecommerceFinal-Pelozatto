@@ -2,7 +2,7 @@ import NavBar from "./components/NavBar";
 import ItemsListContainer from "./components/ItemsListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import Checkout from "./components/Checkout";
-import db from "./helpers/firebase";
+import db from "./config/firebase";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -13,31 +13,31 @@ import { Context } from "./Context";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [vehiculos, setVehiculos] = useState([]);
+  const [productos, setproductos] = useState([]);
   const [carrito, setCarrito] = useState([]);
   const [openModalWithId, setOpenModalWithId] = useState();
 
   useEffect(() => {
-    //Cargar motos
+    //Cargar Prendas
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const q = query(collection(db, "vehiculos"));
+    const q = query(collection(db, "productos"));
     const data = [];
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      let vehiculo = {
+      let bien = {
         id: doc.id,
         ...doc.data(),
       };
-      data.push(vehiculo);
+      data.push(bien);
       console.log(doc.id, " => ", doc.data());
     });
-    setVehiculos(data);
+    setproductos(data);
   };
 
-  const categorias = ["Motos", "Cuatriciclos", "Lanchas"];
+  const categorias = ["Prendas", "Joyas", "accesorios"];
 
   return (
     <div className="body">
@@ -52,7 +52,7 @@ function App() {
             path="/"
             Component={(props) => (
               <ItemsListContainer
-                vehiculos={vehiculos}
+                productos={productos}
                 categorias={categorias}
                 {...props}
               />
@@ -62,7 +62,7 @@ function App() {
             path="/category/:id"
             Component={(props) => (
               <ItemsListContainer
-                vehiculos={vehiculos}
+                productos={productos}
                 categorias={categorias}
                 {...props}
               />
@@ -72,7 +72,7 @@ function App() {
             path="/item/:id"
             Component={(props) => (
               <ItemDetailContainer
-                vehiculos={vehiculos}
+                productos={productos}
                 categorias={categorias}
                 {...props}
               />
@@ -80,7 +80,7 @@ function App() {
           />
           <Route
             path="/checkout/"
-            Component={(props) => <Checkout vehiculos={vehiculos} {...props} />}
+            Component={(props) => <Checkout productos={productos} {...props} />}
           />
         </Routes>
       </Context.Provider>

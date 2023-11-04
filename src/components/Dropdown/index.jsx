@@ -15,10 +15,10 @@ export default function Dropdown() {
       {open ? (
         <ul className="menu">
           <li className="menu-item">
-            <Link to={"/category/0"} onClick={() => setOpen(!open)}>Motos</Link>
+            <Link to={"/category/0"} onClick={() => setOpen(!open)}>Prendas</Link>
           </li>
           <li className="menu-item">
-            <Link to={"/category/1"} onClick={() => setOpen(!open)}>Cuatriciclos</Link>
+            <Link to={"/category/1"} onClick={() => setOpen(!open)}>Joyas</Link>
           </li>
         </ul>
       ) : null}

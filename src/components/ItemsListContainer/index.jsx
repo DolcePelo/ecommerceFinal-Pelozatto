@@ -3,27 +3,27 @@ import ListedItem from "../ListedItem";
 import "./style.css";
 import { useParams } from "react-router-dom";
 
-export default function ItemsListContainer({ vehiculos, categorias }) {
+export default function ItemsListContainer({ productos, categorias }) {
   let { id } = useParams();
-  console.log(vehiculos)
-  let [vehiculosActuales, setVehiculosActuales] = useState(vehiculos);
+  console.log(productos)
+  let [productosActuales, setproductosActuales] = useState(productos);
 
   useEffect(() => {
     if (id) {
-      const aux = vehiculos.filter(
-        (vehiculo) => vehiculo.categoria === Number(id)
+      const aux = productos.filter(
+        (producto) => producto.categoria === Number(id)
       );
-      setVehiculosActuales(aux);
+      setproductosActuales(aux);
     }
   }, [id]);
 
   return (
     <div className="container">
-      <p className="categoria">{id ? categorias[id] : "Vehiculos"}</p>
+      <p className="categoria">{id ? categorias[id] : "productos"}</p>
       <div className="listado">
-        {vehiculosActuales.map((vehiculo) => {
+        {productosActuales.map((producto) => {
           return (
-            <ListedItem vehiculo={vehiculo} categorias={categorias} />
+            <ListedItem producto={producto} categorias={categorias} />
           );
         })}
       </div>

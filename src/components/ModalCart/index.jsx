@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { agregarCarrito } from "../../helpers/carrito";
+import { agregarCarrito } from "../../config/carrito";
 import { Context } from "../../Context";
 import "./index.css";
 
